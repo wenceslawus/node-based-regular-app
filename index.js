@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const handlebar = require('express-handlebars')
 const appRoutes  = require('./src/routes/employers')
+require('dotenv').config()
 
 const PORT = process.env.PORT || 3002
 const HOSTNAME = '127.0.0.1'
@@ -20,7 +21,7 @@ app.use(appRoutes)
 async function start() {
     try {
         await mongoose.connect(
-            'mongodb://employerUser:employer@localhost:27017/employers',
+            process.env.MONGO_URI,
             {
                 useNewUrlParser: true,
                 useFindAndModify: false
