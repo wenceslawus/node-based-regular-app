@@ -1,0 +1,30 @@
+{
+  "name": "kozak-group-test",
+  "version": "1.0.0",
+  "description": "node-based app for recruitment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon --watch src index.js -e hbs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/wenceslawus/node-based-regular-app.git"
+  },
+  "author": "Slawek B",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wenceslawus/node-based-regular-app/issues"
+  },
+  "homepage": "https://github.com/wenceslawus/node-based-regular-app#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
+    "mongoose": "^5.9.14"
+  },
+  "devDependencies": {
+    "faker": "^4.1.0",
+    "nodemon": "^2.0.4"
+  }
+}
