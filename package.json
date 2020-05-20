@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon --watch src index.js -e hbs"
+    "dev": "nodemon --watch src/ index.js -e *"
   },
   "repository": {
     "type": "git",
@@ -19,13 +19,22 @@
   },
   "homepage": "https://github.com/wenceslawus/node-based-regular-app#readme",
   "dependencies": {
+    "axios": "^0.19.2",
+    "bcrypt": "^4.0.1",
+    "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-handlebars": "^4.0.4",
-    "mongoose": "^5.9.14"
+    "express-jwt": "^5.3.3",
+    "express-validator": "^6.5.0",
+    "faker": "^4.1.0",
+    "mongoose": "^5.9.14",
+    "next": "^9.4.1",
+    "next-routes": "^1.4.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-table": "^7.1.0"
   },
   "devDependencies": {
-    "faker": "^4.1.0",
     "nodemon": "^2.0.4"
   }
 }
