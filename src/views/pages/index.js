@@ -17,7 +17,6 @@ export async function getInitialProps() {
 
     const res = await axios.get(`http://${process.env.HOSTNAME}:${process.env.PORT}/api/user/`);
     const users = await res.data
-    const users =
     return {
         props: {
             users
