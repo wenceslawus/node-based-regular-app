@@ -6,7 +6,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const jwt = require('express-jwt')
-const validator = require('express-validator')
+const {check} = require('express-validator')
 
 const userSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
         validate: value => {
-            if (!validator.isEmail(value)) {
+            if (!check(value).isEmail()) {
                 throw new Error({error: 'Invalid Email address'})
             }
         }

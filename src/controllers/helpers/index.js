@@ -11,17 +11,15 @@ exports.seedUsers = function (req, res, next) {
             lastName: faker.name.lastName(),
             position: faker.name.jobTitle(),
             salary: faker.finance.amount(),
-            // birthDay: faker.date.past(),
+            birthDay: faker.date.past(),
             email: faker.internet.email(),
             password: 'qwerty',
             isEmployer: true,
         })
 
-        User.save((err, data) => {
+        User.save((err) => {
             if (err) {
-                return err;
-            } else {
-                return next();
+                res.status(500).send('Error occured', err);
             }
         });
     }
