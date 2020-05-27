@@ -1,97 +1,167 @@
-import React from 'react'
+import React, {useState} from 'react';
 import axios from 'axios';
-import { useTable } from 'react-table'
+import ReactTable, { useTable, usePagination } from 'react-table'
+import app from './../../configs/app.config';
+
+// const data = React.useMemo(
+//     () => [
+//         {
+//             col1: 'Hello',
+//             col2: 'World',
+//         },
+//         {
+//             col1: 'react-table',
+//             col2: 'rocks',
+//         },
+//         {
+//             col1: 'whatever',
+//             col2: 'you want',
+//         },
+//     ],
+//     []
+// )
+
 
 export default function Table({users}) {
-
-    const data = React.useMemo(
-        () => [
-            {
-                col1: 'Hello',
-                col2: 'World',
-            },
-            {
-                col1: 'react-table',
-                col2: 'rocks',
-            },
-            {
-                col1: 'whatever',
-                col2: 'you want',
-            },
-        ],
-        []
-    )
+    console.log(users)
 
     const columns = React.useMemo(
         () => [
             {
-                Header: 'First Name',
-                accessor: 'col1', // accessor is the "key" in the data
+                Header: 'Last Name',
+                accessor: 'lastName', // accessor is the "key" in the data
             },
             {
-                Header: 'Last Name',
-                accessor: 'col2',
+                Header: 'First Name',
+                accessor: 'firstName', // accessor is the "key" in the data
             },
+
             {
                 Header: 'Email',
-                accessor: 'col3',
+                accessor: 'email', // accessor is the "key" in the data
+            },
+            {
+                Header: 'Position',
+                accessor: 'position', // accessor is the "key" in the data
+            },
+            {
+                Header: 'Salary',
+                accessor: 'salary', // accessor is the "key" in the data
+            },
+            {
+                Header: 'BirthDay',
+                accessor: 'birthDay', // accessor is the "key" in the data
+            },
+            {
+                Header: 'Employer',
+                accessor: 'isEmployer', // accessor is the "key" in the data
+                // Cell: ({ row, original }) => {
+                //     return (isEmployer)
+                // }
+            },
+            {
+                Header: 'Action',
+                accessor: 'action', // accessor is the "key" in the data
+                Cell: ({ row, original }) => {
+                    return 0
+                }
+
             },
         ],
         []
     )
 
-    // Use the state and functions returned from useTable to build your UI
+
+    const data = React.useMemo(
+        () => [
+            ...users
+        ],
+        []
+    )
+
     const {
         getTableProps,
         getTableBodyProps,
         headerGroups,
-        rows,
         prepareRow,
-    } = useTable({
-        columns,
-        data,
-    })
+        rows,
+        page,
+        canPreviousPage,
+        canNextPage,
+        pageOptions,
+        pageCount,
+        gotoPage,
+        nextPage,
+        previousPage,
+        setPageSize,
+    } = useTable(
+        {columns,
+            data,
+            initialState: { pageIndex: 0 }, // Pass our hoisted table state
+            manualPagination: true, // Tell the usePagination
+            // hook that we'll handle our own data fetching
+            // This means we'll also have to provide our own
+            // pageCount.
+            pageCount: 5
+        },
+        usePagination
+    )
 
-    // Render the UI for your table
+    console.log(prepareRow)
     return (
-        <div>
-            <table {...getTableProps()}>
-                {users}
+        <>
+            <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
                 <thead>
                 {headerGroups.map(headerGroup => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
                         {headerGroup.headers.map(column => (
-                            <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                            <th
+                                {...column.getHeaderProps()}
+                                style={{
+                                    borderBottom: 'solid 3px red',
+                                    background: 'aliceblue',
+                                    color: 'black',
+                                    fontWeight: 'bold',
+                                }}
+                            >
+                                {column.render('Header')}
+                            </th>
                         ))}
                     </tr>
                 ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                {rows.map((row, i) => {
+                {rows.map(row => {
                     prepareRow(row)
                     return (
                         <tr {...row.getRowProps()}>
                             {row.cells.map(cell => {
-                                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                                return (
+                                    <td
+                                        {...cell.getCellProps()}
+                                        style={{
+                                            padding: '10px',
+                                            border: 'solid 1px gray',
+                                            background: 'papayawhip',
+                                        }}
+                                    >
+                                        {cell.render('Cell')}
+                                    </td>
+                                )
                             })}
                         </tr>
                     )
                 })}
                 </tbody>
             </table>
-        </div>
+        </>
     )
 }
 
-// export async function getInitialProps() {
-//
-//     //@TODO data from axios doesn't available
-//
-//     const res = await axios.get(`http://${process.env.HOSTNAME}:${process.env.PORT}/api/user/`);
-//     const users = await res.data
-//     return {
-//         props: {
-//             users
-//         },
-//     }
-// }
+
+
+
+
+
+
+
